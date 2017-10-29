@@ -14,6 +14,12 @@
 		0A5B38E01E43D30300934D69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5B38DE1E43D30300934D69 /* LaunchScreen.storyboard */; };
 		0A5B38EB1E43D30300934D69 /* BLEDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B38EA1E43D30300934D69 /* BLEDemoTests.swift */; };
 		0A5B38F61E43D30300934D69 /* BLEDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B38F51E43D30300934D69 /* BLEDemoUITests.swift */; };
+		0A9426171F0D3A4F0072DDA6 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9426161F0D3A4F0072DDA6 /* CoreBluetooth.framework */; };
+		0A9426191F0D3A5A0072DDA6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9426181F0D3A5A0072DDA6 /* CoreLocation.framework */; };
+		0A94261B1F0D3A630072DDA6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A94261A1F0D3A630072DDA6 /* CoreData.framework */; };
+		0A94261D1F0D3FA20072DDA6 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A94261C1F0D3FA20072DDA6 /* libz.1.dylib */; };
+		0A94261F1F0D40100072DDA6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A94261E1F0D40100072DDA6 /* MapKit.framework */; };
+		0A9426211F0D40210072DDA6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A9426201F0D40210072DDA6 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A3732B01F153091006580D1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0A5B38D21E43D30300934D69 /* BLEDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5B38D51E43D30300934D69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A5B38D71E43D30300934D69 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +54,12 @@
 		0A5B38F11E43D30300934D69 /* BLEDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BLEDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5B38F51E43D30300934D69 /* BLEDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEDemoUITests.swift; sourceTree = "<group>"; };
 		0A5B38F71E43D30300934D69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A9426161F0D3A4F0072DDA6 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		0A9426181F0D3A5A0072DDA6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0A94261A1F0D3A630072DDA6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0A94261C1F0D3FA20072DDA6 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../libz.1.dylib; sourceTree = "<group>"; };
+		0A94261E1F0D40100072DDA6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0A9426201F0D40210072DDA6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +67,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A9426211F0D40210072DDA6 /* Security.framework in Frameworks */,
+				0A94261F1F0D40100072DDA6 /* MapKit.framework in Frameworks */,
+				0A94261D1F0D3FA20072DDA6 /* libz.1.dylib in Frameworks */,
+				0A94261B1F0D3A630072DDA6 /* CoreData.framework in Frameworks */,
+				0A9426191F0D3A5A0072DDA6 /* CoreLocation.framework in Frameworks */,
+				0A9426171F0D3A4F0072DDA6 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +100,7 @@
 				0A5B38E91E43D30300934D69 /* BLEDemoTests */,
 				0A5B38F41E43D30300934D69 /* BLEDemoUITests */,
 				0A5B38D31E43D30300934D69 /* Products */,
+				0A9426151F0D3A4F0072DDA6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +143,20 @@
 				0A5B38F71E43D30300934D69 /* Info.plist */,
 			);
 			path = BLEDemoUITests;
+			sourceTree = "<group>";
+		};
+		0A9426151F0D3A4F0072DDA6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0A3732B01F153091006580D1 /* AudioToolbox.framework */,
+				0A9426201F0D40210072DDA6 /* Security.framework */,
+				0A94261E1F0D40100072DDA6 /* MapKit.framework */,
+				0A94261C1F0D3FA20072DDA6 /* libz.1.dylib */,
+				0A94261A1F0D3A630072DDA6 /* CoreData.framework */,
+				0A9426181F0D3A5A0072DDA6 /* CoreLocation.framework */,
+				0A9426161F0D3A4F0072DDA6 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,7 +227,13 @@
 				TargetAttributes = {
 					0A5B38D11E43D30300934D69 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 93RA65X64B;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					0A5B38E51E43D30300934D69 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -412,9 +452,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 93RA65X64B;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BLEDemo",
+				);
 				INFOPLIST_FILE = BLEDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = SB.BLEDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = JFC.BLEDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -424,9 +470,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 93RA65X64B;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BLEDemo",
+				);
 				INFOPLIST_FILE = BLEDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = SB.BLEDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = JFC.BLEDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -505,6 +557,7 @@
 				0A5B38FC1E43D30300934D69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A5B38FD1E43D30300934D69 /* Build configuration list for PBXNativeTarget "BLEDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +566,7 @@
 				0A5B38FF1E43D30300934D69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A5B39001E43D30300934D69 /* Build configuration list for PBXNativeTarget "BLEDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +575,7 @@
 				0A5B39021E43D30300934D69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

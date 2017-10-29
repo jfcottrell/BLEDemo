@@ -2,7 +2,7 @@
 //  BLEDemoTests.swift
 //  BLEDemoTests
 //
-//  Created by John Cottrell on 2/2/17.
+//  Created by John Cottrell on 9/2/17.
 //  Copyright © 2017 John Cottrell. All rights reserved.
 //
 
