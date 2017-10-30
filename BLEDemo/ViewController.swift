@@ -174,13 +174,15 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         print("uuid = \(myRegion.proximityUUID) \(String(describing: myRegion.major))::\(String(describing: myRegion.minor))")
         print("ENTER REGION \(region.identifier) ON \(Date())")
         
-        for i in 0 ... beaconInfoArray.count - 1 {
-            if beaconInfoArray[i].identifier == region.identifier {
-                beaconInfoArray[i].inRange = true;
-                tableView.reloadData()
+        if beaconInfoArray.count > 0 {
+            for i in 0 ... beaconInfoArray.count - 1 {
+                if beaconInfoArray[i].identifier == region.identifier {
+                    beaconInfoArray[i].inRange = true;
+                    tableView.reloadData()
+                }
             }
         }
-        notification(type: "enter")
+        notification(type: "enter", regionID: region.identifier)
     }
     
     
@@ -188,23 +190,25 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         
         print("EXIT REGION \(region.identifier) ON \(Date())")
        
-        for i in 0 ... beaconInfoArray.count - 1 {
-            if beaconInfoArray[i].identifier == region.identifier {
-                beaconInfoArray[i].inRange = false;
-                tableView.reloadData()
+        if beaconInfoArray.count > 0 {
+            for i in 0 ... beaconInfoArray.count - 1 {
+                if beaconInfoArray[i].identifier == region.identifier {
+                    beaconInfoArray[i].inRange = false;
+                    tableView.reloadData()
+                }
             }
         }
-        notification(type: "exit")
+        notification(type: "exit", regionID: region.identifier)
     }
     
     // User Notification
-    func notification(type: String) {
+    func notification(type: String, regionID: String) {
         
         // Notification: Content
         let content = UNMutableNotificationContent()
         content.title = "Region Change"
         content.subtitle = "Region change notification"
-        content.body = "Region change \(type)"
+        content.body = "Region change \(type). Region id \(regionID)"
         content.categoryIdentifier = "message"
         
         // Notification: Trigger
