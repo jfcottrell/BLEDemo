@@ -22,16 +22,17 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     let beaconRegionEstimoteUUID = "B9407F30-F5F8-466E-AFF9-25556B57FE6D"   // Estimote
     let beaconRegionNordicUUID =   "01122334-4556-6778-899A-ABBCCDDEEFF0"   // Nordic
     let toIgnore = "3CC695E7-CB6E-4EBC-BBB3-B5CFACA26544"                   // iMac
-    
     let useMbed = true
     let useEstimote = false
     let useNordic = false
-    
     var uuids: [String] = []
+    var beaconInfoArray: [BeaconInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        self.title = "BLE Demo"
         
         manager = CBCentralManager(delegate: self, queue: nil)
         locationManager.delegate = self
@@ -62,6 +63,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         // Request auth for user notifs
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: {(granted, error) in })
         
+        // Set tableView dataSource and delegates to view controller (i.e. self)
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -81,9 +83,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        
-        print("centralManager:didDiscover peripheral: \(advertisementData)")
-        
+
         let uuidIMac = UUID(uuidString: toIgnore);
         
         if peripheral.identifier != uuidIMac {
@@ -95,45 +95,21 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 print("RSSI: \(RSSI)")
                 print("UUID: \(uuid)")
                 print("UUID Type: \(type(of: uuid))");
-                
-                //let dataString = NSString(data: uuid as! Data, encoding: String.Encoding.utf8.rawValue)
-                //let dataString = String(data: uuid as! Data, encoding: .utf8)
-                
-                //print(advertisementData["kCBAdvDataManufacturerData"] as! String)
-                
                 if let advData = advertisementData["kCBAdvDataManufacturerData"] as? Data {
                     print("Convert")
                 } else {
                     print("Can't convert")
                 }
-                
-//                //Convert NSData to NSString
-//                let resultNSString = NSString(data: uuid as! Data, encoding: String.Encoding.utf8.rawValue)!
-//                
-//                //Convert NSString to String
-//                
-//                let resultString = resultNSString as String
-//                
-//                print(resultString)
-                
-//                let uuidString = uuid as? String ?? ""
-//                if uuidString == beaconRegionNordicUUID {
-//                        uuids.append(uuidString)
-//                        tableView.reloadData()
-//                }
             }
         }
     }
-    
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
         peripheral.discoverServices(nil)
     }
     
-    
     private func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
     }
-    
     
     // iBeacons can be detected in the foreground and background using the CoreLocation framework
     //MARK: - CLocationManager Delegate Methods
@@ -165,15 +141,11 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
 
         print("beacons: \(beacons)")
+        
         for beacon in beacons {
             let major = beacon.major
             let minor = beacon.minor
-//            let majorHex: String = String(format: "%X", major)
-//            let minorHex: String = String(format: "%X", minor)
-//            let endIndex = majorHex.index(majorHex.endIndex, offsetBy: -1)
-//            let majorHexTrimmed = majorHex.substring(to: endIndex)
-//            let minorHexTrimmed = minorHex.substring(to: endIndex)
-//            print("Result: \(majorHexTrimmed)-\(minorHexTrimmed)")
+            
             print("Result: \(beacon.proximityUUID) :: \(major)-\(minor)")
             
             let strUUID = beacon.proximityUUID.uuidString
@@ -182,23 +154,46 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 uuids.append(strUUID)
                 tableView.reloadData()
             }
+            
+            let found = beaconInfoArray.filter{$0.uuid == strUUID}.count > 0
+            var identifier: String = ""
+            if found == false {
+                if strUUID == "E20A39F4-73F5-4BC4-A12F-17D1AD07A961" {
+                    identifier = "mbed"
+                }
+                
+                let beaconInfo = BeaconInfo(uuid: strUUID, identifier: identifier, inRange: true)
+                beaconInfoArray.append(beaconInfo)
+            }
         }
     }
 
-    
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         
         let myRegion = region as! CLBeaconRegion
         print("uuid = \(myRegion.proximityUUID) \(String(describing: myRegion.major))::\(String(describing: myRegion.minor))")
-
         print("ENTER REGION \(region.identifier) ON \(Date())")
         
+        for i in 0 ... beaconInfoArray.count - 1 {
+            if beaconInfoArray[i].identifier == region.identifier {
+                beaconInfoArray[i].inRange = true;
+                tableView.reloadData()
+            }
+        }
         notification(type: "enter")
     }
     
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        
         print("EXIT REGION \(region.identifier) ON \(Date())")
+       
+        for i in 0 ... beaconInfoArray.count - 1 {
+            if beaconInfoArray[i].identifier == region.identifier {
+                beaconInfoArray[i].inRange = false;
+                tableView.reloadData()
+            }
+        }
         notification(type: "exit")
     }
     
@@ -228,9 +223,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 
-
     // MARK: - UITableViewDataSource
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return uuids.count
     }
@@ -238,17 +231,29 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath)
         
-        let strUUID = uuids[indexPath.row]
+        //let strUUID = uuids[indexPath.row]
+        let beaconInfo = beaconInfoArray[indexPath.row]
+        let strUUID = beaconInfo.uuid
+        
+        var cellText: String
         
         if strUUID == beaconRegionEstimoteUUID {
-            cell.textLabel?.text = "Estimote"
+            cellText = "Estimote"
         } else if strUUID == beaconRegionMbedUUID {
-            cell.textLabel?.text = "Mbed"
+            cellText = "Mbed"
         } else if strUUID == beaconRegionNordicUUID {
-            cell.textLabel?.text = "Nordic"
+            cellText = "Nordic"
         } else {
-            cell.textLabel?.text = "unkown"
+            cellText = "unknown"
         }
+        
+        if beaconInfo.inRange == true {
+            (cell.contentView.viewWithTag(100) as! UIImageView).image = UIImage(named: "dot_green.png")
+        } else {
+            (cell.contentView.viewWithTag(100) as! UIImageView).image = UIImage(named: "dot_red.png")
+        }
+        (cell.contentView.viewWithTag(200) as! UILabel).text = cellText
+
         return cell
     }
 }

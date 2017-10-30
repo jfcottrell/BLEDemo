@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+struct BeaconInfo {
+    var uuid: String
+    var identifier: String
+    var inRange: Bool
+}
