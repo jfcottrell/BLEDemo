@@ -5,7 +5,7 @@
 #include "mbed.h"
 #include "ble/services/iBeacon.h"
 
-DigitalOut led1(LED1);
+DigitalOut led2(LED2);
 
 BLE ble;
 
@@ -33,8 +33,9 @@ void bleInitComplete(BLE::InitializationCompleteCallbackContext *params)
     uint16_t txPower     = 0xB4;
     iBeacon *ibeacon = new iBeacon(ble, uuid, majorNumber, minorNumber, txPower);
 
-    ble.gap().setAdvertisingInterval(100);  // 100ms.
+    ble.gap().setAdvertisingInterval(100); /* 100ms. */
     ble.gap().startAdvertising();
+    led2 = 1;
 }
 
 // main() runs in its own thread in the OS
@@ -46,6 +47,11 @@ int main() {
     while (!ble.hasInitialized()) { /* spin loop */ }
 
     while (true) {
-        ble.waitForEvent(); // allows or low power operation
+
+        // Toggle LED2 (advertising signal)
+        led2 = 1;
+        wait(0.2);
+        led2 = 0;
+        wait(0.2);
     }
 }
