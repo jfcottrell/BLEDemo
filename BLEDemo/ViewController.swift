@@ -32,6 +32,9 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        navigationController?.navigationBar.barTintColor = UIColor(red: 39.0/255.0, green: 65.0/255.0, blue:208.0/255.0, alpha:1.0)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         self.title = "BLE Demo"
         
         manager = CBCentralManager(delegate: self, queue: nil)
@@ -143,10 +146,12 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         print("beacons: \(beacons)")
         
         for beacon in beacons {
-            let major = beacon.major
-            let minor = beacon.minor
+            let major = beacon.major.intValue
+            let minor = beacon.minor.intValue
+            let rssi = beacon.rssi
+            let proximity = beacon.proximity.rawValue
             
-            print("Result: \(beacon.proximityUUID) :: \(major)-\(minor)")
+            print("Result: \(beacon.proximityUUID) :: \(major)-\(minor)  \(rssi)")
             
             let strUUID = beacon.proximityUUID.uuidString
             
@@ -162,7 +167,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                     identifier = "mbed"
                 }
                 
-                let beaconInfo = BeaconInfo(uuid: strUUID, identifier: identifier, inRange: true)
+                let beaconInfo = BeaconInfo(uuid: strUUID, identifier: identifier, inRange: true, major: major, minor: minor, rssi: rssi, proximity: proximity)
                 beaconInfoArray.append(beaconInfo)
             }
         }
@@ -194,6 +199,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             for i in 0 ... beaconInfoArray.count - 1 {
                 if beaconInfoArray[i].identifier == region.identifier {
                     beaconInfoArray[i].inRange = false;
+                    beaconInfoArray[i].proximity = 0;
                     tableView.reloadData()
                 }
             }
@@ -227,6 +233,16 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 
+    // MARK: - Storyboard segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "main_detail_segue" {
+            if let beaconDetailViewController = segue.destination as? BeaconDetailViewController {
+                let beaconInfo = beaconInfoArray[(sender as! IndexPath).row]
+                beaconDetailViewController.beaconInfo = beaconInfo
+            }
+        }
+    }
+    
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return uuids.count
@@ -257,7 +273,14 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             (cell.contentView.viewWithTag(100) as! UIImageView).image = UIImage(named: "dot_red.png")
         }
         (cell.contentView.viewWithTag(200) as! UILabel).text = cellText
+        
+        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
 
         return cell
+    }
+    
+    // method to run when table view cell is tapped
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "main_detail_segue", sender: indexPath);
     }
 }

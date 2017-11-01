@@ -1,8 +1,6 @@
 # BLEDemo
 
-This demo uses both a Nordic nRF51 development board running a small mbed iBeacon app  
-and an iOS app written in Swift. The iOS app uses both the BLE and Core Location iOS  
-frameworks to communicate with the dev board.  
+This demo uses both a Nordic nRF51 development board running a small mbed iBeacon app and an iOS app written in Swift. The iOS app uses both the BLE and Core Location iOS frameworks to communicate with the dev board.  
 
 To flash the dev board:  
 

@@ -7,9 +7,14 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct BeaconInfo {
     var uuid: String
     var identifier: String
     var inRange: Bool
+    var major: Int
+    var minor: Int
+    var rssi: Int
+    var proximity: Int
 }

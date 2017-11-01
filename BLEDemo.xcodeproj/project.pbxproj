@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A43FB1A1FA780DD003832CF /* BeaconInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43FB191FA780DD003832CF /* BeaconInfo.swift */; };
+		0A43FB221FAA488A003832CF /* BeaconDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43FB211FAA488A003832CF /* BeaconDetailViewController.swift */; };
 		0A5B38D61E43D30300934D69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B38D51E43D30300934D69 /* AppDelegate.swift */; };
 		0A5B38D81E43D30300934D69 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5B38D71E43D30300934D69 /* ViewController.swift */; };
 		0A5B38DB1E43D30300934D69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A5B38D91E43D30300934D69 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		0A3732B01F153091006580D1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0A43FB191FA780DD003832CF /* BeaconInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconInfo.swift; sourceTree = "<group>"; };
+		0A43FB211FAA488A003832CF /* BeaconDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDetailViewController.swift; sourceTree = "<group>"; };
 		0A5B38D21E43D30300934D69 /* BLEDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLEDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5B38D51E43D30300934D69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A5B38D71E43D30300934D69 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				0A5B38D51E43D30300934D69 /* AppDelegate.swift */,
 				0A5B38D71E43D30300934D69 /* ViewController.swift */,
+				0A43FB211FAA488A003832CF /* BeaconDetailViewController.swift */,
 				0A5B38D91E43D30300934D69 /* Main.storyboard */,
 				0A5B38DC1E43D30300934D69 /* Assets.xcassets */,
 				0A5B38DE1E43D30300934D69 /* LaunchScreen.storyboard */,
@@ -304,6 +307,7 @@
 			files = (
 				0A5B38D81E43D30300934D69 /* ViewController.swift in Sources */,
 				0A5B38D61E43D30300934D69 /* AppDelegate.swift in Sources */,
+				0A43FB221FAA488A003832CF /* BeaconDetailViewController.swift in Sources */,
 				0A43FB1A1FA780DD003832CF /* BeaconInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
