@@ -162,13 +162,25 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
             
             let found = beaconInfoArray.filter{$0.uuid == strUUID}.count > 0
             var identifier: String = ""
+            var beaconImage: String = ""
             if found == false {
                 if strUUID == "E20A39F4-73F5-4BC4-A12F-17D1AD07A961" {
                     identifier = "mbed"
+                    beaconImage = "nRF51-DK.png"
                 }
                 
-                let beaconInfo = BeaconInfo(uuid: strUUID, identifier: identifier, inRange: true, major: major, minor: minor, rssi: rssi, proximity: proximity)
+                let beaconInfo = BeaconInfo(uuid: strUUID, identifier: identifier, inRange: true, major: major, minor: minor, rssi: rssi, proximity: proximity, beaconImage:beaconImage)
                 beaconInfoArray.append(beaconInfo)
+            } else {
+                // Update proximity
+                if beaconInfoArray.count > 0 {
+                    for i in 0 ... beaconInfoArray.count - 1 {
+                        if beaconInfoArray[i].identifier == region.identifier {
+                            beaconInfoArray[i].proximity = proximity;
+                            NotificationCenter.default.post(name: Notification.Name("BLE_UPDATE"), object: nil, userInfo: ["userInfo" : beaconInfoArray[i]])
+                        }
+                    }
+                }
             }
         }
     }
@@ -184,6 +196,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                 if beaconInfoArray[i].identifier == region.identifier {
                     beaconInfoArray[i].inRange = true;
                     tableView.reloadData()
+                    NotificationCenter.default.post(name: Notification.Name("BLE_UPDATE"), object: nil, userInfo: ["userInfo" : beaconInfoArray[i]])
                 }
             }
         }
@@ -201,6 +214,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDe
                     beaconInfoArray[i].inRange = false;
                     beaconInfoArray[i].proximity = 0;
                     tableView.reloadData()
+                    NotificationCenter.default.post(name: Notification.Name("BLE_UPDATE"), object: nil, userInfo: ["userInfo" : beaconInfoArray[i]])
                 }
             }
         }

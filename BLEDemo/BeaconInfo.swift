@@ -17,4 +17,5 @@ struct BeaconInfo {
     var minor: Int
     var rssi: Int
     var proximity: Int
+    var beaconImage: String
 }

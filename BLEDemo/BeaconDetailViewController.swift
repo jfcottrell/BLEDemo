@@ -13,6 +13,7 @@ class BeaconDetailViewController: UIViewController {
     
     var beaconInfo: BeaconInfo!
     
+    @IBOutlet weak var beaconImage: UIImageView!
     @IBOutlet weak var uuidLabel: UILabel!
     @IBOutlet weak var identifierLabel: UILabel!
     @IBOutlet weak var inRangeLabel: UILabel!
@@ -23,13 +24,21 @@ class BeaconDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Register for notification updates
+        NotificationCenter.default.addObserver(self, selector: #selector(bleUpdateReceived), name: Notification.Name("BLE_UPDATE"), object: nil)
         self.title = "Details"
-        print("BeaconInfoViewController : view did load")
+        updateUI()
+    }
+    
+    func bleUpdateReceived(_ notification: Notification) {
         
-        print("beacon info = \(beaconInfo)")
+        beaconInfo = notification.userInfo!["userInfo"] as! BeaconInfo
+        updateUI()
+    }
+    
+    func updateUI() {
         
         if let beaconInfo = beaconInfo {
-            
             uuidLabel.text = beaconInfo.uuid
             identifierLabel.text = beaconInfo.identifier
             if beaconInfo.inRange == true {
@@ -39,6 +48,8 @@ class BeaconDetailViewController: UIViewController {
             }
             majorLabel.text = String(beaconInfo.major)
             minorLabel.text = String(beaconInfo.minor)
+        
+            beaconImage.image = UIImage(named: beaconInfo.beaconImage)
             
             switch beaconInfo.proximity {
                 case 0: proximityLabel.text = "Unknown"
